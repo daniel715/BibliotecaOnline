@@ -42,7 +42,9 @@ public class LibroRepository implements ILibroRepository {
                 row.getInt("stock"),
                 row.getFloat("precio"),
                 row.getString("Autor_id"),
-                row.getString("imageurl")
+                row.getString("imageurl"),
+                row.getString("categorias"),
+                row.getString("resumen")
         );
     }
 

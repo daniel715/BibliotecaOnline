@@ -8,9 +8,11 @@ public class Libro {
     private float precio;
     private String idAutor;
     private String imageurl;
+    private String categorias;
+    private String resumen;
 
 
-    public Libro(String id, String nombre, String year, int stock, float precio, String idAutor, String imageurl) {
+    public Libro(String id, String nombre, String year, int stock, float precio, String idAutor, String imageurl, String categorias, String resumen) {
         this.id = id;
         this.nombre = nombre;
         this.year = year;
@@ -18,9 +20,27 @@ public class Libro {
         this.precio = precio;
         this.idAutor = idAutor;
         this.imageurl = imageurl;
+        this.categorias = categorias;
+        this.resumen = resumen;
     }
 
     public Libro() {
+    }
+
+    public String getResumen() {
+        return resumen;
+    }
+
+    public void setResumen(String resumen) {
+        this.resumen = resumen;
+    }
+
+    public String getCategorias() {
+        return categorias;
+    }
+
+    public void setCategorias(String categorias) {
+        this.categorias = categorias;
     }
 
     public String getImageurl() {
