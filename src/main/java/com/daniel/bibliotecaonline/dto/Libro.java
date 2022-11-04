@@ -9,6 +9,7 @@ public class Libro {
     private String idAutor;
     private String imageurl;
 
+
     public Libro(String id, String nombre, String year, int stock, float precio, String idAutor, String imageurl) {
         this.id = id;
         this.nombre = nombre;

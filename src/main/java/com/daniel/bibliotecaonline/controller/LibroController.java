@@ -2,10 +2,10 @@ package com.daniel.bibliotecaonline.controller;
 
 import com.daniel.bibliotecaonline.dao.impl.LibroRepository;
 import com.daniel.bibliotecaonline.dto.Libro;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 @RestController
@@ -32,15 +32,30 @@ public class LibroController {
         else return null;
     }
 
-    @PostMapping(path = "/save",consumes = "application/json")
+    @PostMapping(path = "/save", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public Optional<Libro> saveLibro( @RequestBody Optional<Libro> libro){
-            return libroRepository.save(libro);
+    public Optional<Libro> saveLibro(@RequestBody Optional<Libro> libro) {
+        return libroRepository.save(libro);
     }
 
     @PatchMapping(path = "/update/{libroId}", consumes = "application/json")
-    public Optional<Libro> updateLibro(@PathVariable("libroId") String libroId , @RequestBody Optional<Libro> libro ){
-            return libroRepository.updateLibro(libroId, libro);
+    public Optional<Libro> updateLibro(@PathVariable("libroId") String libroId, @RequestBody Optional<Libro> libro) {
+        return libroRepository.updateLibro(libroId, libro);
+    }
+
+    @DeleteMapping("/delete/{libroId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteLibro(@PathVariable("libroId") String libroId) {
+        try {
+            libroRepository.delete(libroId);
+        } catch (EmptyResultDataAccessException e) {
+            System.out.println("No se encontro libro");
+        }
+    }
+
+    @GetMapping("/buscar/{param}")
+    public Iterable<Libro> buscarLibros(@PathVariable("param") String param){
+        return libroRepository.buscarLibros(param);
     }
 
 }

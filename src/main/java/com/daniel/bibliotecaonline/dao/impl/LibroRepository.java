@@ -101,5 +101,15 @@ public class LibroRepository implements ILibroRepository {
         return libro;
     }
 
+    @Override
+    public void delete(String libroId) {
+        String sqlquery = "DELETE FROM libro where id = ?";
+        jdbcTemplate.update(sqlquery, libroId);
+    }
 
+    @Override
+    public Iterable<Libro> buscarLibros(String param) {
+        String sqlquery = "SELECT * FROM libro WHERE nombre LIKE '%" + param + "%'  UNION ALL SELECT * FROM libro WHERE Autor_id in (select id from autor where nombre LIKE '%" + param + "%')";
+        return jdbcTemplate.query(sqlquery, this::mapRowToLibro);
+    }
 }

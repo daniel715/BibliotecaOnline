@@ -15,4 +15,8 @@ public interface ILibroRepository {
     public Optional<Libro> updateLibro( String libroId ,Optional<Libro> libro);
 
     public Optional<Libro> update(Optional<Libro> libro);
+
+    public void delete(String libroId);
+
+    public Iterable<Libro> buscarLibros(String param);
 }
