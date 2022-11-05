@@ -84,7 +84,6 @@ public class LibroRepository implements ILibroRepository {
         if (libro.get().getImageurl() != null) {
             libroToSend.get().setImageurl(libro.get().getImageurl());
         }
-
         return update(libroToSend);
     }
 

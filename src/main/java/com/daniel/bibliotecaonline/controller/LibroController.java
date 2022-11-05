@@ -1,6 +1,6 @@
 package com.daniel.bibliotecaonline.controller;
 
-import com.daniel.bibliotecaonline.dao.impl.LibroRepository;
+import com.daniel.bibliotecaonline.dao.ILibroRepository;
 import com.daniel.bibliotecaonline.dto.Libro;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -12,9 +12,9 @@ import java.util.Optional;
 @RequestMapping(path = "libro", produces = "application/json")
 @CrossOrigin(origins = "*")
 public class LibroController {
-    private LibroRepository libroRepository;
+    private ILibroRepository libroRepository;
 
-    public LibroController(LibroRepository libroRepository) {
+    public LibroController(ILibroRepository libroRepository) {
         this.libroRepository = libroRepository;
     }
 
