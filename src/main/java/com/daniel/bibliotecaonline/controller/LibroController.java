@@ -58,4 +58,9 @@ public class LibroController {
         return libroRepository.buscarLibros(param);
     }
 
+    @GetMapping("/buscarporcategoria/{param}")
+    public Iterable<Libro> buscarporcategoria(@PathVariable("param") String param){
+        return libroRepository.buscarporcategoria(param);
+    }
+
 }

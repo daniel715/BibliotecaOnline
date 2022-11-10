@@ -19,4 +19,6 @@ public interface ILibroRepository {
     public void delete(String libroId);
 
     public Iterable<Libro> buscarLibros(String param);
+
+    public Iterable<Libro> buscarporcategoria(String param);
 }

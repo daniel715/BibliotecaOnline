@@ -22,7 +22,7 @@ public class LibroRepository implements ILibroRepository {
 
     @Override
     public Optional<Libro> findById(String id) {
-        List<Libro> results = jdbcTemplate.query("select id, nombre,  year, stock,precio,Autor_id,imageurl from Libro where id=?", this::mapRowToLibro, id);
+        List<Libro> results = jdbcTemplate.query("select id, nombre,year, stock,precio,Autor_id,imageurl from Libro where id=?", this::mapRowToLibro, id);
         return results.size() == 0 ?
                 Optional.empty() :
                 Optional.of(results.get(0));
@@ -30,7 +30,7 @@ public class LibroRepository implements ILibroRepository {
 
     @Override
     public Iterable<Libro> findAll() {
-        return jdbcTemplate.query("select id, nombre,year, stock,precio,Autor_id,imageurl from Libro", this::mapRowToLibro);
+        return jdbcTemplate.query("select id, nombre,year, stock,precio,Autor_id,imageurl,resumen from Libro", this::mapRowToLibro);
     }
 
     private Libro mapRowToLibro(ResultSet row, int rowNum)
@@ -43,7 +43,6 @@ public class LibroRepository implements ILibroRepository {
                 row.getFloat("precio"),
                 row.getString("Autor_id"),
                 row.getString("imageurl"),
-                row.getString("categorias"),
                 row.getString("resumen")
         );
     }
@@ -51,14 +50,15 @@ public class LibroRepository implements ILibroRepository {
     @Override
     public Optional<Libro> save(Optional<Libro> libro) {
         jdbcTemplate.update(
-                "insert into Libro (id, nombre, year, stock, precio, Autor_id, imageurl) values (?,?,?,?,?,?,?)",
+                "insert into Libro (id, nombre, year, stock, precio, Autor_id, imageurl, String) values (?,?,?,?,?,?,?,?)",
                 libro.get().getId(),
                 libro.get().getNombre(),
                 libro.get().getYear(),
                 libro.get().getStock(),
                 libro.get().getPrecio(),
                 libro.get().getIdAutor(),
-                libro.get().getImageurl()
+                libro.get().getImageurl(),
+                libro.get().getResumen()
         );
         return libro;
     }
@@ -84,12 +84,15 @@ public class LibroRepository implements ILibroRepository {
         if (libro.get().getImageurl() != null) {
             libroToSend.get().setImageurl(libro.get().getImageurl());
         }
+        if (libro.get().getResumen() != null) {
+            libroToSend.get().setResumen(libro.get().getResumen());
+        }
         return update(libroToSend);
     }
 
     @Override
     public Optional<Libro> update(Optional<Libro> libro) {
-        String sqlquery = "update Libro set nombre = ?, year = ?, stock = ?, precio = ?, Autor_id = ? , imageurl = ?  where id= ?";
+        String sqlquery = "update Libro set nombre = ?, year = ?, stock = ?, precio = ?, Autor_id = ? , imageurl = ?, resumen = ?  where id= ?";
         jdbcTemplate.update(sqlquery,
                 libro.get().getNombre(),
                 libro.get().getYear(),
@@ -97,7 +100,8 @@ public class LibroRepository implements ILibroRepository {
                 libro.get().getPrecio(),
                 libro.get().getIdAutor(),
                 libro.get().getImageurl(),
-                libro.get().getId()
+                libro.get().getId(),
+                libro.get().getResumen()
         );
         return libro;
     }
@@ -112,5 +116,11 @@ public class LibroRepository implements ILibroRepository {
     public Iterable<Libro> buscarLibros(String param) {
         String sqlquery = "SELECT * FROM libro WHERE nombre LIKE '%" + param + "%'  UNION ALL SELECT * FROM libro WHERE Autor_id in (select id from autor where nombre LIKE '%" + param + "%')";
         return jdbcTemplate.query(sqlquery, this::mapRowToLibro);
+    }
+
+    @Override
+    public Iterable<Libro> buscarporcategoria(String param) {
+        String sqlquery = "select * from libro where id in (select libro_id from libro_has_categoria where categoria_id = ?)";
+        return jdbcTemplate.query(sqlquery, this::mapRowToLibro, param);
     }
 }
