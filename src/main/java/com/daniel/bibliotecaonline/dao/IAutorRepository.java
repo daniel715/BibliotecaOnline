@@ -6,17 +6,17 @@ import java.util.Optional;
 
 public interface IAutorRepository {
 
-    public Optional<Autor> findById(String id);
+    Optional<Autor> findById(String id);
 
-    public Iterable<Autor> findAll();
+    Iterable<Autor> findAll();
 
-    public Optional<Autor> save (Optional<Autor> autor);
+    Optional<Autor> save (Optional<Autor> autor);
 
-    public Optional<Autor> updateAutor(String autorId , Optional<Autor> autor);
+    Optional<Autor> updateAutor(String autorId , Optional<Autor> autor);
 
-    public Optional<Autor> update(Optional<Autor> autor);
+    Optional<Autor> update(Optional<Autor> autor);
 
-    public Iterable<Autor> buscarAutor(String param);
+    Iterable<Autor> buscarAutor(String param);
 
-    public void delete(String autorId);
+    void delete(String autorId);
 }

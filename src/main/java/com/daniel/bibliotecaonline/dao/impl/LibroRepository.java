@@ -2,7 +2,6 @@ package com.daniel.bibliotecaonline.dao.impl;
 
 import com.daniel.bibliotecaonline.dao.ILibroRepository;
 import com.daniel.bibliotecaonline.dto.Libro;
-import org.apache.juli.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -56,14 +55,7 @@ public class LibroRepository implements ILibroRepository {
 
     @Override
     public Optional<Libro> save(Optional<Libro> libro) {
-        logger.log(Level.INFO,"Libro ess *************************** " + libro.get().getId());
-        logger.log(Level.INFO,"Libro ess *************************** " + libro.get().getImageurl());
-        logger.log(Level.INFO,"Libro ess *************************** " + libro.get().getNombre());
-        logger.log(Level.INFO,"Libro ess *************************** " + libro.get().getYear());
-        logger.log(Level.INFO,"Libro ess *************************** " + libro.get().getStock());
-        logger.log(Level.INFO,"Libro ess *************************** " + libro.get().getPrecio());
-        logger.log(Level.INFO,"Libro ess *************************** " + libro.get().getIdAutor());
-        logger.log(Level.INFO,"Libro ess *************************** " + libro.get().getResumen());
+        logger.log(Level.INFO,"Libro ess *************************** " + libro.get());
         jdbcTemplate.update(
                 "insert into Libro (id, nombre, year, stock, precio, Autor_id, imageurl, resumen) values (?,?,?,?,?,?,?,?)",
                 libro.get().getId(),

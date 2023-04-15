@@ -2,6 +2,7 @@ package com.daniel.bibliotecaonline.dao.impl;
 
 import com.daniel.bibliotecaonline.dao.ICategoriaRepository;
 import com.daniel.bibliotecaonline.dto.Categoria;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -15,6 +16,7 @@ public class CategoriaRepository implements ICategoriaRepository {
 
     private JdbcTemplate jdbcTemplate;
 
+    @Autowired
     public CategoriaRepository(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate = jdbcTemplate;
     }
