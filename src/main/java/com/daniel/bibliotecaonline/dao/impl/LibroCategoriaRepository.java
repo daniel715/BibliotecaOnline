@@ -19,9 +19,10 @@ public class LibroCategoriaRepository implements ILibroCategoriaRepository {
     @Override
     public Optional<LibroCategoria> save(Optional<LibroCategoria> libroCategoria) {
         jdbcTemplate.update(
-                "insert into librocategorias (idLibro,categorias) values (?,?)",
+                "insert into librocategorias (idLibro,categoriasId, categorias) values (?,?,?)",
                 libroCategoria.get().getLibroId(),
-                libroCategoria.get().getCategoriasId()
+                libroCategoria.get().getCategoriasId(),
+                libroCategoria.get().getCategorias()
         );
         return libroCategoria;
     }

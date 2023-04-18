@@ -68,7 +68,7 @@ public class CategoriaRepository implements ICategoriaRepository {
 
     @Override
     public Iterable<Categoria> buscarCategoria(String param) {
-        String sqlquery = "SELECT * FROM categoria WHERE nombre LIKE '%" + param + "%'";
+        String sqlquery = "SELECT * FROM librocategorias WHERE nombre LIKE '%" + param + "%'";
         return jdbcTemplate.query(sqlquery, this::mapRowToCategoria);
     }
 

@@ -1,18 +1,25 @@
 package com.daniel.bibliotecaonline.controller;
 
 import com.daniel.bibliotecaonline.dao.ILibroRepository;
+import com.daniel.bibliotecaonline.dao.impl.LibroRepository;
 import com.daniel.bibliotecaonline.dto.Libro;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @RestController
 @RequestMapping(path = "libro", produces = "application/json")
 @CrossOrigin(origins = "*")
 public class LibroController {
     private ILibroRepository libroRepository;
+
+    Logger logger
+            = Logger.getLogger(
+            LibroController.class.getName());
 
     public LibroController(ILibroRepository libroRepository) {
         this.libroRepository = libroRepository;
@@ -35,6 +42,9 @@ public class LibroController {
     @PostMapping(path = "/save", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public Optional<Libro> saveLibro(@RequestBody Optional<Libro> libro) {
+        logger.log(Level.INFO,"Libro ess *************************** " + libro.get().getNombre());
+        logger.log(Level.INFO,"Libro ess *************************** " + libro.get().getYear());
+        logger.log(Level.INFO,"Libro ess *************************** " + libro.get().getImageurl());
         return libroRepository.save(libro);
     }
 
