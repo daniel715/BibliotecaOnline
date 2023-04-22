@@ -42,9 +42,6 @@ public class LibroController {
     @PostMapping(path = "/save", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public Optional<Libro> saveLibro(@RequestBody Optional<Libro> libro) {
-        logger.log(Level.INFO,"Libro ess *************************** " + libro.get().getNombre());
-        logger.log(Level.INFO,"Libro ess *************************** " + libro.get().getYear());
-        logger.log(Level.INFO,"Libro ess *************************** " + libro.get().getImageurl());
         return libroRepository.save(libro);
     }
 

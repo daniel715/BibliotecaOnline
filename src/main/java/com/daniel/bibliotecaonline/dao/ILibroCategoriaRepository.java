@@ -9,4 +9,7 @@ public interface ILibroCategoriaRepository {
     Optional<LibroCategoria> save(Optional<LibroCategoria> libroCategoria);
 
 
+    Optional<LibroCategoria> findCategoriasByLibroId(String id);
+
+    void delete(String id);
 }
