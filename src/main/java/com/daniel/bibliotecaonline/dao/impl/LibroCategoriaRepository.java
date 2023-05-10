@@ -1,8 +1,8 @@
 package com.daniel.bibliotecaonline.dao.impl;
 
 import com.daniel.bibliotecaonline.dao.ILibroCategoriaRepository;
-import com.daniel.bibliotecaonline.dto.Libro;
 import com.daniel.bibliotecaonline.dto.LibroCategoria;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -15,6 +15,7 @@ import java.util.Optional;
 @Repository
 public class LibroCategoriaRepository implements ILibroCategoriaRepository {
     private JdbcTemplate jdbcTemplate;
+
     @Autowired
     public LibroCategoriaRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -43,6 +44,30 @@ public class LibroCategoriaRepository implements ILibroCategoriaRepository {
     public void delete(String libroId) {
         String sqlquery = "DELETE FROM librocategorias where idLibro = ?";
         jdbcTemplate.update(sqlquery, libroId);
+    }
+
+    @Override
+    public Optional<LibroCategoria> updateLibroCategoria(String libroId, Optional<LibroCategoria> libro) {
+        Optional<LibroCategoria> libroToSend = findCategoriasByLibroId(libroId);
+        if (libro.get().getCategoriasId().length()  > 0) {
+            libroToSend.get().setCategoriasId(libro.get().getCategoriasId());
+        }
+        if (libro.get().getCategorias().length() > 0) {
+            libroToSend.get().setCategorias(libro.get().getCategorias());
+        }
+        return update(libroToSend, libroId);
+    }
+
+    @Override
+    public Optional<LibroCategoria> update(Optional<LibroCategoria> libro, String libroId) {
+        String sqlquery = "update librocategorias set categoriasId = ?, categorias = ? where idLibro= ?";
+
+        jdbcTemplate.update(sqlquery,
+                libro.get().getCategoriasId(),
+                libro.get().getCategorias(),
+                libroId
+        );
+        return libro;
     }
 
     private LibroCategoria mapRowToLibroCategoria(ResultSet row, int rowNum)

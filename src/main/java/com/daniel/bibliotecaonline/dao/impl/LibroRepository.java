@@ -2,7 +2,6 @@ package com.daniel.bibliotecaonline.dao.impl;
 
 import com.daniel.bibliotecaonline.dao.ILibroRepository;
 import com.daniel.bibliotecaonline.dto.Libro;
-import org.apache.juli.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -11,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Repository
@@ -29,7 +27,7 @@ public class LibroRepository implements ILibroRepository {
 
     @Override
     public Optional<Libro> findById(String id) {
-        List<Libro> results = jdbcTemplate.query("select id, nombre,year, stock,precio,Autor_id,imageurl from Libro where id=?", this::mapRowToLibro, id);
+        List<Libro> results = jdbcTemplate.query("select id, nombre,year, stock,precio,Autor_id,imageurl, resumen from Libro where id=?", this::mapRowToLibro, id);
         return results.size() == 0 ?
                 Optional.empty() :
                 Optional.of(results.get(0));
@@ -107,8 +105,8 @@ public class LibroRepository implements ILibroRepository {
                 libro.get().getPrecio(),
                 libro.get().getIdAutor(),
                 libro.get().getImageurl(),
-                libro.get().getId(),
-                libro.get().getResumen()
+                libro.get().getResumen(),
+                libro.get().getId()
         );
         return libro;
     }
