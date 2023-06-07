@@ -2,6 +2,7 @@ package com.daniel.bibliotecaonline.controller;
 
 import com.daniel.bibliotecaonline.dao.ILibroCategoriaRepository;
 import com.daniel.bibliotecaonline.dao.impl.LibroRepository;
+import com.daniel.bibliotecaonline.dto.Autor;
 import com.daniel.bibliotecaonline.dto.Libro;
 import com.daniel.bibliotecaonline.dto.LibroCategoria;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -25,7 +26,13 @@ public class LibroCategoriaController {
     public LibroCategoriaController(ILibroCategoriaRepository iLibroCategoriaRepository) {
         this.LibroCategoriaRepository = iLibroCategoriaRepository;
     }
-
+    @GetMapping("list")
+    public Iterable<LibroCategoria> listAll(){
+        if (LibroCategoriaRepository.findAll().toString() != null) {
+            return LibroCategoriaRepository.findAll();
+        }
+        return null;
+    }
     @PostMapping(path = "/save", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public Optional<LibroCategoria> saveLibroCategoria(@RequestBody Optional<LibroCategoria> libro) {

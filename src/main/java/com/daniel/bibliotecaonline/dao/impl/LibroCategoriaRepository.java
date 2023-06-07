@@ -1,6 +1,7 @@
 package com.daniel.bibliotecaonline.dao.impl;
 
 import com.daniel.bibliotecaonline.dao.ILibroCategoriaRepository;
+import com.daniel.bibliotecaonline.dto.Autor;
 import com.daniel.bibliotecaonline.dto.LibroCategoria;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,6 +69,11 @@ public class LibroCategoriaRepository implements ILibroCategoriaRepository {
                 libroId
         );
         return libro;
+    }
+
+    @Override
+    public Iterable<LibroCategoria> findAll() {
+        return jdbcTemplate.query("select * from librocategorias", this::mapRowToLibroCategoria);
     }
 
     private LibroCategoria mapRowToLibroCategoria(ResultSet row, int rowNum)

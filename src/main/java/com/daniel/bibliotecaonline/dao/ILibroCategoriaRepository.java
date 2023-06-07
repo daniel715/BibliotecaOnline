@@ -16,4 +16,6 @@ public interface ILibroCategoriaRepository {
 
     Optional<LibroCategoria> updateLibroCategoria(String libroId, Optional<LibroCategoria> libro);
     Optional<LibroCategoria> update(Optional<LibroCategoria> libro, String libroId);
+
+    Iterable<LibroCategoria> findAll();
 }
