@@ -1,7 +1,6 @@
 package com.daniel.bibliotecaonline.controller;
 
 import com.daniel.bibliotecaonline.dao.ICategoriaRepository;
-import com.daniel.bibliotecaonline.dto.Autor;
 import com.daniel.bibliotecaonline.dto.Categoria;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;

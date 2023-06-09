@@ -1,6 +1,5 @@
 package com.daniel.bibliotecaonline.dao;
 
-import com.daniel.bibliotecaonline.dto.Libro;
 import com.daniel.bibliotecaonline.dto.LibroCategoria;
 
 import java.util.Optional;
