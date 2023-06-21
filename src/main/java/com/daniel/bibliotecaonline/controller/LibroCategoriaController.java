@@ -24,40 +24,51 @@ public class LibroCategoriaController {
     public LibroCategoriaController(ILibroCategoriaRepository iLibroCategoriaRepository) {
         this.LibroCategoriaRepository = iLibroCategoriaRepository;
     }
+
     @GetMapping("list")
-    public Iterable<LibroCategoria> listAll(){
+    public Iterable<LibroCategoria> listAll() {
         if (LibroCategoriaRepository.findAll().toString() != null) {
             return LibroCategoriaRepository.findAll();
         }
         return null;
     }
+
     @PostMapping(path = "/save", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public Optional<LibroCategoria> saveLibroCategoria(@RequestBody Optional<LibroCategoria> libro) {
+    public LibroCategoria save(@RequestBody LibroCategoria libro) {
         return LibroCategoriaRepository.save(libro);
     }
 
-    @GetMapping({"/{libroId}"})
-    public Optional<LibroCategoria> findCategoriasByLibroId(@PathVariable("libroId") String id) {
-            return LibroCategoriaRepository.findCategoriasByLibroId(id);
-    }
-
     @PatchMapping(path = "/update/{libroId}", consumes = "application/json")
-    public Optional<LibroCategoria> updateLibroCategoria(@PathVariable("libroId") String libroId, @RequestBody Optional<LibroCategoria> libro) {
-        logger.info(libro.get().getLibroId());
-        logger.info(libro.get().getCategorias());
-        logger.info(libro.get().getCategoriasId());
-        return LibroCategoriaRepository.updateLibroCategoria(libroId, libro);
+    public void update(@PathVariable("libroId") String libroId, @RequestBody String categorias) {
+        LibroCategoriaRepository.update(libroId, categorias);
     }
 
     @DeleteMapping("/delete/{libroId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteLibro(@PathVariable("libroId") String libroId) {
+    public void deleteLibroCategorias(@PathVariable("libroId") String libroId) {
         try {
             LibroCategoriaRepository.delete(libroId);
         } catch (EmptyResultDataAccessException e) {
             System.out.println("No se encontro libro");
         }
     }
+
+//    @PatchMapping(path = "/update/{libroId}", consumes = "application/json")
+//    public LibroCategoria update(@PathVariable("libroId") String libroId, @RequestBody LibroCategoria libro) {
+//        logger.info(libro.getIdLibro());
+//        logger.info(libro.getIdCategoria());
+//        return LibroCategoriaRepository.updateLibroCategoria(libroId, libro);
+//    }
+//
+//    @DeleteMapping("/delete/{libroId}")
+//    @ResponseStatus(HttpStatus.NO_CONTENT)
+//    public void deleteLibro(@PathVariable("libroId") String libroId) {
+//        try {
+//            LibroCategoriaRepository.delete(libroId);
+//        } catch (EmptyResultDataAccessException e) {
+//            System.out.println("No se encontro libro");
+//        }
+//    }
 
 }

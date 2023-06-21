@@ -19,6 +19,12 @@ public class CategoriaController {
         this.categoriaRepository = categoriaRepository;
     }
 
+    @GetMapping("/{categoriaId}")
+    public Categoria findById(@PathVariable("categoriaId") String id){
+        if (categoriaRepository.findById(id) != null ) return categoriaRepository.findById(id);
+        else return null;
+    }
+
     @GetMapping("list")
     public Iterable<Categoria> listAll(){
         if (categoriaRepository.findAll().toString() != null) {
@@ -27,20 +33,14 @@ public class CategoriaController {
         return null;
     }
 
-    @GetMapping("/{categoriaId}")
-    public Optional<Categoria> findById(@PathVariable("categoriaId") String id){
-        if (categoriaRepository.findById(id).isPresent()) return categoriaRepository.findById(id);
-        else return null;
-    }
-
     @PostMapping(path = "/save", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public Optional<Categoria> saveCategoria(@RequestBody Optional<Categoria> categoria) {
+    public Categoria saveCategoria(@RequestBody Categoria categoria) {
         return categoriaRepository.save(categoria);
     }
 
     @PatchMapping(path = "/update/{categoriaId}", consumes = "application/json")
-    public Optional<Categoria> updateCategoria(@PathVariable("categoriaId") String categoriaId, @RequestBody Optional<Categoria> categoria) {
+    public Categoria updateCategoria(@PathVariable("categoriaId") String categoriaId, @RequestBody Categoria categoria) {
         return categoriaRepository.updateCategoria(categoriaId, categoria);
     }
 

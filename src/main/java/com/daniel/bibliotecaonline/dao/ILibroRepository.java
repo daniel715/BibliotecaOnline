@@ -6,16 +6,11 @@ import java.util.Optional;
 
 public interface ILibroRepository {
 
-    Optional<Libro> findById(String id);
-
     Iterable<Libro> findAll();
+    Libro findById(String id);
+    Libro save(Libro libro);
 
-    Optional<Libro> save(Optional<Libro> libro);
-
-    Optional<Libro> updateLibro( String libroId ,Optional<Libro> libro);
-
-    Optional<Libro> update(Optional<Libro> libro);
-
+    Libro updateLibro( String libroId ,Libro libro);
     void delete(String libroId);
 
     Iterable<Libro> buscarLibros(String param);

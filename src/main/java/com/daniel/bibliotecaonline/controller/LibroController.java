@@ -32,19 +32,19 @@ public class LibroController {
     }
 
     @GetMapping({"/{libroId}"})
-    public Optional<Libro> findById(@PathVariable("libroId") String id) {
-        if (libroRepository.findById(id).isPresent()) return libroRepository.findById(id);
+    public Libro findById(@PathVariable("libroId") String id) {
+        if (libroRepository.findById(id) != null ) return libroRepository.findById(id);
         else return null;
     }
 
     @PostMapping(path = "/save", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public Optional<Libro> saveLibro(@RequestBody Optional<Libro> libro) {
+    public Libro saveLibro(@RequestBody Libro libro) {
         return libroRepository.save(libro);
     }
 
     @PatchMapping(path = "/update/{libroId}", consumes = "application/json")
-    public Optional<Libro> updateLibro(@PathVariable("libroId") String libroId, @RequestBody Optional<Libro> libro) {
+    public Libro updateLibro(@PathVariable("libroId") String libroId, @RequestBody Libro libro) {
         return libroRepository.updateLibro(libroId, libro);
     }
 

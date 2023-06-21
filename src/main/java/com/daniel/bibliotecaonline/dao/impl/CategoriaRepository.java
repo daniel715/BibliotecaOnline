@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class CategoriaRepository implements ICategoriaRepository {
@@ -17,55 +16,52 @@ public class CategoriaRepository implements ICategoriaRepository {
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public CategoriaRepository(JdbcTemplate jdbcTemplate){
+    public CategoriaRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
-    public Optional<Categoria> findById(String id) {
-        List<Categoria> results = jdbcTemplate.query("select id, nombre from categoria where id=?", this::mapRowToCategoria, id);
+    public Categoria findById(String id) {
+        List<Categoria> results = jdbcTemplate.query("call Categoria_find_by_id(?)", this::mapRowToCategoria, id);
         return results.size() == 0 ?
-                Optional.empty() :
-                Optional.of(results.get(0));
+                null :
+                results.get(0);
     }
 
     @Override
     public Iterable<Categoria> findAll() {
-        return jdbcTemplate.query("select * from categoria", this::mapRowToCategoria);
+        return jdbcTemplate.query("call Categoria_list();", this::mapRowToCategoria);
     }
 
     @Override
-    public Optional<Categoria> save(Optional<Categoria> categoria) {
+    public Categoria save(Categoria categoria) {
         jdbcTemplate.update(
-                "insert into categoria (id, nombre) values (?,?)",
-                categoria.get().getId(),
-                categoria.get().getNombre()
+                "call Categoria_save(?,?)",
+                categoria.getId(),
+                categoria.getNombre()
         );
         return categoria;
     }
 
     @Override
-    public Optional<Categoria> updateCategoria(String categoriaId, Optional<Categoria> categoria) {
-        Optional<Categoria> categoriaToSend = findById(categoriaId);
-        if (categoria.get().getId() != null) {
-            categoriaToSend.get().setId(categoria.get().getId());
+    public Categoria updateCategoria(String categoriaId, Categoria categoria) {
+        Categoria categoriaToSend = this.findById(categoriaId);
+        if (categoriaToSend == null) return null;
+        else {
+            if (categoria.getNombre() != null) {
+                categoriaToSend.setNombre(categoria.getNombre());
+            }
+            String sqlquery = "call Categoria_update( ?, ?)";
+            jdbcTemplate.update(sqlquery,
+                    categoriaToSend.getId(),
+                    categoriaToSend.getNombre()
+            );
+            return categoriaToSend;
         }
-        if (categoria.get().getNombre() != null) {
-            categoriaToSend.get().setNombre(categoria.get().getNombre());
-        }
-        return update(categoriaToSend);
+
     }
 
-    @Override
-    public Optional<Categoria> update(Optional<Categoria> categoria) {
-        String sqlquery = "update categoria set nombre = ? where id= ?";
-        jdbcTemplate.update(sqlquery,
-                categoria.get().getNombre(),
-                categoria.get().getId()
-        );
-        return categoria;
-    }
-
+    //falta pasar buscarCategoria a SP, por ahora se deja como esta
     @Override
     public Iterable<Categoria> buscarCategoria(String param) {
         String sqlquery = "SELECT * FROM librocategorias WHERE nombre LIKE '%" + param + "%'";
@@ -74,14 +70,14 @@ public class CategoriaRepository implements ICategoriaRepository {
 
     @Override
     public void delete(String categoriaId) {
-        String sqlquery = "DELETE FROM categoria where id = ?";
+        String sqlquery = "call Categoria_delete(?);";
         jdbcTemplate.update(sqlquery, categoriaId);
     }
 
     private Categoria mapRowToCategoria(ResultSet row, int rowNum)
             throws SQLException {
         return new Categoria(
-                row.getString("id"),
+                row.getString("id_categoria"),
                 row.getString("nombre")
         );
     }

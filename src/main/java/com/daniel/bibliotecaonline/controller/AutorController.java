@@ -6,21 +6,22 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(path = "autor" , produces = "application/json")
-@CrossOrigin(origins = "*" )
+@RequestMapping(path = "autor", produces = "application/json")
+@CrossOrigin(origins = "*")
 public class AutorController {
 
-    private IAutorRepository iAutorRepository;
+    private final IAutorRepository iAutorRepository;
 
-    public AutorController(IAutorRepository autorRepository){
+    public AutorController(IAutorRepository autorRepository) {
         this.iAutorRepository = autorRepository;
     }
 
     @GetMapping("list")
-    public Iterable<Autor> listAll(){
+    public Object listAll() {
         if (iAutorRepository.findAll().toString() != null) {
             return iAutorRepository.findAll();
         }
@@ -28,19 +29,19 @@ public class AutorController {
     }
 
     @GetMapping("/find/{autorId}")
-    public Optional<Autor> findById(@PathVariable("autorId") String id){
-        if (iAutorRepository.findById(id).isPresent()) return iAutorRepository.findById(id);
+    public Autor findById(@PathVariable("autorId") String id) {
+        if (iAutorRepository.findById(id) != null) return iAutorRepository.findById(id);
         else return null;
     }
 
     @PostMapping(path = "/save", consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public Optional<Autor> saveAutor(@RequestBody Optional<Autor> autor) {
+    public Autor saveAutor(@RequestBody Autor autor) {
         return iAutorRepository.save(autor);
     }
 
     @PatchMapping(path = "/update/{autorId}", consumes = "application/json")
-    public Optional<Autor> updateAutor(@PathVariable("autorId") String autorId, @RequestBody Optional<Autor> autor) {
+    public Autor updateAutor(@PathVariable("autorId") String autorId, @RequestBody Autor autor) {
         return iAutorRepository.updateAutor(autorId, autor);
     }
 
@@ -55,7 +56,7 @@ public class AutorController {
     }
 
     @GetMapping("/buscar/{param}")
-    public Iterable<Autor> buscarAutores(@PathVariable("param") String param){
+    public Iterable<Autor> buscarAutores(@PathVariable("param") String param) {
         return iAutorRepository.buscarAutor(param);
     }
 

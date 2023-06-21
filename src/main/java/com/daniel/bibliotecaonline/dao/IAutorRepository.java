@@ -2,19 +2,17 @@ package com.daniel.bibliotecaonline.dao;
 
 import com.daniel.bibliotecaonline.dto.Autor;
 
-import java.util.Optional;
+import java.util.List;
 
 public interface IAutorRepository {
 
-    Optional<Autor> findById(String id);
+    Autor findById(String id);
 
-    Iterable<Autor> findAll();
+    List<Autor> findAll();
 
-    Optional<Autor> save (Optional<Autor> autor);
+    Autor save(Autor autor);
 
-    Optional<Autor> updateAutor(String autorId , Optional<Autor> autor);
-
-    Optional<Autor> update(Optional<Autor> autor);
+    Autor updateAutor(String autorId, Autor autor);
 
     Iterable<Autor> buscarAutor(String param);
 

@@ -1,51 +1,33 @@
 package com.daniel.bibliotecaonline.dto;
 
 public class Libro {
-    private String id;
+    private String idLibro;
     private String nombre;
     private String year;
-    private int stock;
     private float precio;
     private String idAutor;
-    private String imageurl;
     private String resumen;
+    private Boolean isSelled;
+    private String idPedido;
 
 
-    public Libro(String id, String nombre, String year, int stock, float precio, String idAutor, String imageurl, String resumen) {
-        this.id = id;
+    public Libro(String idLibro, String nombre, String year, float precio, String idAutor, String resumen, Boolean isSelled, String idPedido) {
+        this.idLibro = idLibro;
         this.nombre = nombre;
         this.year = year;
-        this.stock = stock;
         this.precio = precio;
         this.idAutor = idAutor;
-        this.imageurl = imageurl;
         this.resumen = resumen;
+        this.isSelled = isSelled;
+        this.idPedido = idPedido;
     }
 
-    public Libro() {
+    public String getIdLibro() {
+        return idLibro;
     }
 
-    public String getResumen() {
-        return resumen;
-    }
-    public void setResumen(String resumen) {
-        this.resumen = resumen;
-    }
-
-    public String getImageurl() {
-        return imageurl;
-    }
-
-    public void setImageurl(String imageurl) {
-        this.imageurl = imageurl;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public void setIdLibro(String idLibro) {
+        this.idLibro = idLibro;
     }
 
     public String getNombre() {
@@ -64,14 +46,6 @@ public class Libro {
         this.year = year;
     }
 
-    public int getStock() {
-        return stock;
-    }
-
-    public void setStock(int stock) {
-        this.stock = stock;
-    }
-
     public float getPrecio() {
         return precio;
     }
@@ -88,5 +62,27 @@ public class Libro {
         this.idAutor = idAutor;
     }
 
+    public String getResumen() {
+        return resumen;
+    }
 
+    public void setResumen(String resumen) {
+        this.resumen = resumen;
+    }
+
+    public Boolean getSelled() {
+        return isSelled;
+    }
+
+    public void setSelled(Boolean selled) {
+        isSelled = selled;
+    }
+
+    public String getIdPedido() {
+        return idPedido;
+    }
+
+    public void setIdPedido(String idPedido) {
+        this.idPedido = idPedido;
+    }
 }

@@ -1,43 +1,31 @@
 package com.daniel.bibliotecaonline.dto;
 
 public class LibroCategoria {
-    private String libroId;
-    private String categoriasId;
+    private String idLibro;
+    private String idCategoria;
 
-    private String categorias;
-
-
-
-    public LibroCategoria(String libroId, String categoriasId, String categorias) {
-        this.libroId = libroId;
-        this.categoriasId = categoriasId;
-        this.categorias = categorias;
+    public LibroCategoria(String idLibro, String idCategoria) {
+        this.idLibro = idLibro;
+        this.idCategoria = idCategoria;
     }
 
     public LibroCategoria() {
+
     }
 
-    public String getCategorias() {
-        return categorias;
+    public String getIdLibro() {
+        return idLibro;
     }
 
-    public void setCategorias(String categorias) {
-        this.categorias = categorias;
+    public void setIdLibro(String idLibro) {
+        this.idLibro = idLibro;
     }
 
-    public String getLibroId() {
-        return libroId;
+    public String getIdCategoria() {
+        return idCategoria;
     }
 
-    public void setLibroId(String libroId) {
-        this.libroId = libroId;
-    }
-
-    public String getCategoriasId() {
-        return categoriasId;
-    }
-
-    public void setCategoriasId(String categoriasId) {
-        this.categoriasId = categoriasId;
+    public void setIdCategoria(String idCategoria) {
+        this.idCategoria = idCategoria;
     }
 }

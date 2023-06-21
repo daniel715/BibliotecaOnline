@@ -4,9 +4,10 @@ public class Autor {
     String id;
     String nombre;
 
-    public Autor(){}
+    public Autor() {
+    }
 
-    public Autor(String id, String nombre){
+    public Autor(String id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }
