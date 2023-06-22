@@ -1,13 +1,10 @@
 package com.daniel.bibliotecaonline.controller;
 
 import com.daniel.bibliotecaonline.dao.IPedidoRepository;
-import com.daniel.bibliotecaonline.dto.Autor;
 import com.daniel.bibliotecaonline.dto.Pedido;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "pedido", produces = "application/json")

@@ -2,8 +2,6 @@ package com.daniel.bibliotecaonline.dao;
 
 import com.daniel.bibliotecaonline.dto.Categoria;
 
-import java.util.Optional;
-
 public interface ICategoriaRepository {
     Categoria findById(String id);
 

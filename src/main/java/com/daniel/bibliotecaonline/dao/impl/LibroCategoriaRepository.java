@@ -1,7 +1,6 @@
 package com.daniel.bibliotecaonline.dao.impl;
 
 import com.daniel.bibliotecaonline.dao.ILibroCategoriaRepository;
-import com.daniel.bibliotecaonline.dto.Libro;
 import com.daniel.bibliotecaonline.dto.LibroCategoria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;

@@ -1,8 +1,6 @@
 package com.daniel.bibliotecaonline.dao.impl;
 
 import com.daniel.bibliotecaonline.dao.IPedidoRepository;
-import com.daniel.bibliotecaonline.dto.Categoria;
-import com.daniel.bibliotecaonline.dto.Libro;
 import com.daniel.bibliotecaonline.dto.Pedido;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -11,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 class PedidoRepository implements IPedidoRepository {

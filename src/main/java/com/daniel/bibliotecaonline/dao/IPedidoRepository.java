@@ -2,8 +2,6 @@ package com.daniel.bibliotecaonline.dao;
 
 import com.daniel.bibliotecaonline.dto.Pedido;
 
-import java.util.Optional;
-
 public interface IPedidoRepository {
 //    public Iterable<Pedido> findAll();
 

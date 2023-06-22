@@ -6,8 +6,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 @RestController
 @RequestMapping(path = "categoria" , produces = "application/json")
 @CrossOrigin(origins = "*" )

@@ -2,8 +2,6 @@ package com.daniel.bibliotecaonline.dao;
 
 import com.daniel.bibliotecaonline.dto.Libro;
 
-import java.util.Optional;
-
 public interface ILibroRepository {
 
     Iterable<Libro> findAll();

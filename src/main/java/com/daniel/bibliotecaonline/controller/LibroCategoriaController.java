@@ -2,14 +2,12 @@ package com.daniel.bibliotecaonline.controller;
 
 import com.daniel.bibliotecaonline.dao.ILibroCategoriaRepository;
 import com.daniel.bibliotecaonline.dao.impl.LibroRepository;
-import com.daniel.bibliotecaonline.dto.Libro;
 import com.daniel.bibliotecaonline.dto.LibroCategoria;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.logging.Logger;
 
 @RestController
