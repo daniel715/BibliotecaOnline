@@ -1,6 +1,9 @@
 package com.daniel.bibliotecaonline.dao;
 
+import com.daniel.bibliotecaonline.dto.Libro;
 import com.daniel.bibliotecaonline.dto.LibroCategoria;
+
+import java.util.List;
 
 public interface ILibroCategoriaRepository {
 
@@ -11,4 +14,6 @@ public interface ILibroCategoriaRepository {
     void update(String libroId, String categorias);
 
     void delete(String libroId);
+
+    List<LibroCategoria> findById(String id);
 }
