@@ -104,6 +104,7 @@ class PedidoRepository implements IPedidoRepository {
         jdbcTemplate.update(sqlquery, pedidoId);
     }
 
+
     private Pedido mapRowToPedido(ResultSet row, int i) throws SQLException {
         return new Pedido(
                 row.getString("id_pedido"),
